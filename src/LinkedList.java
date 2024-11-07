@@ -15,12 +15,14 @@ public class LinkedList<T> {
 
         if (head == null) {
             head = newElem;
+            tail = newElem;
         } else {
             LinkedElement<T> lastEl = head;
             while (lastEl.next != null) {
                 lastEl = lastEl.next;
             }
             lastEl.next = newElem;
+            tail = lastEl;
         }
     }
 
@@ -32,6 +34,7 @@ public class LinkedList<T> {
 
         if (head == null) {
             head = newElem;
+            tail = newElem;
         } else {
             newElem.next = head;
             head = newElem;
@@ -39,6 +42,7 @@ public class LinkedList<T> {
     }
 
     //get and delete last
+    //todo with tail
     T pop() {
         if (head == null) {
             return null;
@@ -65,7 +69,6 @@ public class LinkedList<T> {
     3) (geht nur bei doppelt verketteter Liste) symmetrischer Tausch der next/prev-Zeiger
     (sehr einfache Übung, falls man schon eine Doppelverkettung hat)
     */
-
     void revert() {
         if (head == null) {
             System.out.println("nothing to revert");
