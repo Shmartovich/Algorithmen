@@ -62,13 +62,11 @@ public class LinkedList<T> {
     }
     //todo revert amogus -> sugoma
     /*
-    1) ... als direkte Listenmanipulation ("Zeiger umbiegen"; Standard-Aufgabe)
-    2) ... als print-artiger Durchlauf durch die Liste mit gleichzeitigem prepend der
-    Elemente in eine Hilfsliste (entspricht Neuaufbau; Vorteil: die alte Liste existiert danach
-    weiter; Nachteil: es wird doppelt soviel Speicher belegt)
+
     3) (geht nur bei doppelt verketteter Liste) symmetrischer Tausch der next/prev-Zeiger
     (sehr einfache Übung, falls man schon eine Doppelverkettung hat)
     */
+    //Zeiger umbiegen
     void revert() {
         if (head == null) {
             System.out.println("nothing to revert");
@@ -84,6 +82,21 @@ public class LinkedList<T> {
         }
         actualEl.next = previous;
         head = actualEl;
+    }
+    //print-artiger Durchlauf
+    void revertWithPrepend(){
+        LinkedList<T> newList = new LinkedList<>();
+        LinkedElement<T> temp = head;
+        while(temp != null){
+            newList.prepend(temp.data);
+            temp = temp.next;
+        }
+        temp = newList.getHead();
+        while(temp != null){
+            System.out.print(temp.data);
+            temp = temp.next;
+        }
+        System.out.println();
     }
 
     public void print() {

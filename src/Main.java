@@ -9,7 +9,6 @@ public class Main {
         list.append('s');
         list.print();
 
-        list.revert();
-        list.print();
+        list.revertWithPrepend();
     }
 }
