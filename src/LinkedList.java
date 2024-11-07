@@ -74,20 +74,16 @@ public class LinkedList<T> {
             System.out.println("nothing to revert");
             return;
         }
-        LinkedElement<T> temp = head;
-        LinkedElement<T> previous = head;
-        while (temp.next != null) {
-            LinkedElement<T> nextEl = temp.next;
-            LinkedElement<T> nextElNext = nextEl.next;
-            nextEl.next = temp;
-            previous = nextEl;
-            temp = nextElNext;
-            nextElNext.next = previous;
-
-
+        LinkedElement<T> actualEl = head;
+        LinkedElement<T> previous = null;
+        while (actualEl.next != null) {
+            LinkedElement<T> nextEl = actualEl.next;
+            actualEl.next = previous;
+            previous = actualEl;
+            actualEl = nextEl;
         }
-        head.next = null;
-        temp.next = previous;
+        actualEl.next = previous;
+        head = actualEl;
     }
 
     public void print() {
