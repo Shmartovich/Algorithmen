@@ -1,39 +1,38 @@
-public class LinkedList<T> {
-    LinkedElement<T> head;
-    LinkedElement<T> tail;
+public class LinkedListDoubly <T> extends LinkedList <T>{
+    LinkedElementDoubly<T> tail;
 
-    class LinkedElement<T> {
-        T data;
-        LinkedElement<T> next;
+    //todo doubly LinkedList
+    class LinkedElementDoubly<T> extends LinkedElement<T>{
+        LinkedElementDoubly<T> previous;
     }
-
     //am ende anhängen
+    @Override
     public void append(T e) {
-        LinkedElement<T> newElem = new LinkedElement<>();
+        LinkedElementDoubly<T> newElem = new LinkedElementDoubly<>();
         newElem.data = e;
         newElem.next = null;
 
-        if (head == null) {
+        if(tail != null){
+            tail.next = newElem;
+            newElem.previous = tail;
+            tail = newElem;
+        }
+        else{
             head = newElem;
-        } else {
-            LinkedElement<T> lastEl = head;
-            while (lastEl.next != null) {
-                lastEl = lastEl.next;
-            }
-            lastEl.next = newElem;
+            tail = newElem;
         }
     }
-
-    //am anfang anhängen
+    //todo der rest unten bearbeiten
+    //todo Löschen eines Referenzelements leicht (bzw. direkt) möglich
+    //todo Einfügen vor und nach einem Referenzelement möglich
     public void prepend(T e) {
         LinkedElement<T> newElem = new LinkedElement<>();
         newElem.data = e;
         newElem.next = null;
 
-        if (head == null) {
-            head = newElem;
-        } else {
+        if (head != null) {
             newElem.next = head;
+        } else {
             head = newElem;
         }
     }
