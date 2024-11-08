@@ -1,6 +1,6 @@
 public class LinkedList<T> {
-    LinkedElement<T> head;
-    LinkedElement<T> tail;
+    private LinkedElement<T> head;
+    private LinkedElement<T> tail;
 
     class LinkedElement<T> {
         T data;
@@ -60,7 +60,6 @@ public class LinkedList<T> {
         lastEl.next = null;
         return temp.data;
     }
-    //todo revert amogus -> sugoma
     /*
 
     3) (geht nur bei doppelt verketteter Liste) symmetrischer Tausch der next/prev-Zeiger

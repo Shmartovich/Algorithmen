@@ -9,6 +9,14 @@ public class Main {
         list.append('s');
         list.print();
 
-        list.revertWithPrepend();
+        LinkedListDoubly<Character> linkedListDoubly = new LinkedListDoubly<>();
+        linkedListDoubly.append('a');
+        linkedListDoubly.append('m');
+        linkedListDoubly.append('o');
+        linkedListDoubly.append('g');
+        linkedListDoubly.append('u');
+        linkedListDoubly.append('s');
+        linkedListDoubly.revert();
+        linkedListDoubly.print();
     }
 }

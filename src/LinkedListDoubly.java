@@ -1,24 +1,26 @@
-public class LinkedListDoubly <T> extends LinkedList <T>{
-    LinkedElementDoubly<T> tail;
+public class LinkedListDoubly <T>{
+    private LinkedElementDoubly<T> head;
+    private LinkedElementDoubly<T> tail;
 
-    //todo doubly LinkedList
-    class LinkedElementDoubly<T> extends LinkedElement<T>{
-        LinkedElementDoubly<T> previous;
+    class LinkedElementDoubly<T>{
+        private T data;
+        private LinkedElementDoubly<T> previous;
+        private LinkedElementDoubly<T> next;
     }
     //am ende anhängen
-    @Override
     public void append(T e) {
         LinkedElementDoubly<T> newElem = new LinkedElementDoubly<>();
         newElem.data = e;
         newElem.next = null;
+        newElem.previous = null;
 
-        if(tail != null){
-            tail.next = newElem;
-            newElem.previous = tail;
+        if(tail == null || head == null){
+            head = newElem;
             tail = newElem;
         }
         else{
-            head = newElem;
+            tail.next = newElem;
+            newElem.previous = tail;
             tail = newElem;
         }
     }
@@ -26,7 +28,7 @@ public class LinkedListDoubly <T> extends LinkedList <T>{
     //todo Löschen eines Referenzelements leicht (bzw. direkt) möglich
     //todo Einfügen vor und nach einem Referenzelement möglich
     public void prepend(T e) {
-        LinkedElement<T> newElem = new LinkedElement<>();
+        LinkedElementDoubly<T> newElem = new LinkedElementDoubly<>();
         newElem.data = e;
         newElem.next = null;
 
@@ -42,8 +44,8 @@ public class LinkedListDoubly <T> extends LinkedList <T>{
         if (head == null) {
             return null;
         }
-        LinkedElement<T> temp = head;
-        LinkedElement<T> lastEl = temp;
+        LinkedElementDoubly<T> temp = head;
+        LinkedElementDoubly<T> lastEl = temp;
         if (temp.next == null) {
             head = null;
             return temp.data;
@@ -55,48 +57,34 @@ public class LinkedListDoubly <T> extends LinkedList <T>{
         lastEl.next = null;
         return temp.data;
     }
-    //todo revert amogus -> sugoma
-    /*
-    1) ... als direkte Listenmanipulation ("Zeiger umbiegen"; Standard-Aufgabe)
-    2) ... als print-artiger Durchlauf durch die Liste mit gleichzeitigem prepend der
-    Elemente in eine Hilfsliste (entspricht Neuaufbau; Vorteil: die alte Liste existiert danach
-    weiter; Nachteil: es wird doppelt soviel Speicher belegt)
-    3) (geht nur bei doppelt verketteter Liste) symmetrischer Tausch der next/prev-Zeiger
-    (sehr einfache Übung, falls man schon eine Doppelverkettung hat)
-    */
-
     void revert() {
-        if (head == null) {
-            System.out.println("nothing to revert");
-            return;
-        }
-        LinkedElement<T> temp = head;
-        LinkedElement<T> previous = head;
-        while (temp.next != null) {
-            LinkedElement<T> nextEl = temp.next;
-            LinkedElement<T> nextElNext = nextEl.next;
-            nextEl.next = temp;
-            previous = nextEl;
-            temp = nextElNext;
-            nextElNext.next = previous;
+        LinkedElementDoubly<T> actual = head;
+        LinkedElementDoubly<T> temp = head;
+        while(actual != null){
+            LinkedElementDoubly<T> next = actual.next;
 
+            temp = actual.next;
+            actual.next = actual.previous;
+            actual.previous = temp;
 
+            actual = next;
         }
-        head.next = null;
-        temp.next = previous;
+        temp = head;
+        head = tail;
+        tail = temp;
     }
 
     public void print() {
-        LinkedElement<T> el = head;
-        while (el != null) {
-            System.out.print(el.data);
-            el = el.next;
+        LinkedElementDoubly<T> actual = head;
+        while (actual != null) {
+            System.out.print(actual.data);
+            actual = actual.next;
         }
         System.out.println();
     }
 
     //recursive print
-    public void rprint(LinkedElement<T> el) {
+    public void rprint(LinkedElementDoubly<T> el) {
         if (el != null) {
             //print list reverted
             /*
@@ -110,7 +98,7 @@ public class LinkedListDoubly <T> extends LinkedList <T>{
         }
     }
 
-    public LinkedElement<T> getHead() {
+    public LinkedElementDoubly<T> getHead() {
         return head;
     }
 }
